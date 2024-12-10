@@ -1,0 +1,25 @@
+.new-call{
+    background-color:rgb(0, 123, 123);
+    width:4vw;
+    height:8vh;
+    border-radius: 1vw;
+    color:white;
+    margin:20vh 95vw;
+    position:fixed;
+    text-align:center;
+    font-size:0.5vw;
+}
+.new-call img{
+    height:5.5vh;
+    margin-top:0.5vh;
+}
+.call{
+    font-weight:550 !important;
+    color:black;
+}
+.cam{
+    margin: 2vh 0 2vh 74vw;
+}
+.in-msg img{
+    height:2.5vh;
+}

@@ -1,0 +1,27 @@
+.community{
+    font-weight:550 !important;
+    color:black;
+}
+.cam{
+    margin: 2vh 0 2vh 68.5vw;
+}
+.in-msg{
+    margin-top:15vh !important;
+}
+.start-com{
+    width:30vw;
+    height:7vh;
+    background-color:rgb(0, 123, 123);
+    color:white;
+    border-radius:2vw;
+    font-size:2vw;
+    text-align:center;
+    padding-top:1vh;
+    margin:20vh auto;
+}
+#search-bar{
+    display:none !important;
+}
+#menu{
+    margin-left:2vw !important;
+}
