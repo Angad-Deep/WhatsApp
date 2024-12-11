@@ -11,6 +11,10 @@
 }
 .new-chat h2{
     margin-top:0;
+    font-weight:500;
+}
+.new-chat:hover{
+    cursor:pointer;
 }
 .chat{
     font-weight:550 !important;

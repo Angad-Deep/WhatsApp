@@ -9,6 +9,7 @@
     right:1vw;
     text-align:center;
     font-size:1vw;
+    cursor: pointer;
 }
 .status-add img{
     margin-top:2vh;
@@ -19,11 +20,16 @@
     color:black;
 }
 .cam{
-    margin: 2vh 0 2vh 70vw;
+    margin-left: 70vw;
 }
 .click-to-add{
     margin:10vh 0;
     display:inline-flex;
+    cursor:pointer;
+    width:100%;
+}
+.click-to-add:hover{
+    background-color:whitesmoke;
 }
 .click-to-add img{
     height:12vh;

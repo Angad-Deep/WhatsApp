@@ -34,14 +34,13 @@ function insertHeaderAndMenu() {
 }
 
 function updateHeaderVisibility() {
-    console.log("Running updateHeaderVisibility");
 
     const whatsappHeading = document.querySelector(".whatsapp");
     const statusPgHeading = document.querySelector(".status-pg");
     const commPgHeading = document.querySelector(".comm-pg");
     const callPgHeading = document.querySelector(".call-pg");
+    const settingsPgHeading = document.querySelector(".settings-pg");
 
-    console.log("Header Elements Found:", { whatsappHeading, statusPgHeading, commPgHeading, callPgHeading });
 
     if (!whatsappHeading || !statusPgHeading || !commPgHeading || !callPgHeading) {
         console.error("Failed to find header elements.");
@@ -49,7 +48,6 @@ function updateHeaderVisibility() {
     }
 
     const pageName = window.location.pathname.split("/").pop().toLowerCase();
-    console.log("Current Page:", pageName);
 
     // Hide all headings by default
     const headings = [whatsappHeading, statusPgHeading, commPgHeading, callPgHeading];
@@ -59,16 +57,14 @@ function updateHeaderVisibility() {
 
     // Show the relevant heading only based on the current page
     if (pageName === "calls.html") {
-        console.log("Showing Calls Heading");
         callPgHeading.style.display = "block";
     } else if (pageName === "updates.html") {
-        console.log("Showing Updates Heading");
         statusPgHeading.style.display = "block";
     } else if (pageName === "community.html") {
-        console.log("Showing Communities Heading");
         commPgHeading.style.display = "block";
+    } else if (pageName === "settings.html") {
+        settingsPgHeading.style.display = "block";
     } else if (pageName === "" || pageName === "index.html") {
-        console.log("Showing WhatsApp Heading");
         whatsappHeading.style.display = "block";
     } else {
         console.warn("No matching page found.");
@@ -172,3 +168,51 @@ function toggleMenuMob() {
         menuContent.style.display = "block";
     }
 }
+let no_chats = true; // Global variable
+
+// Common event listener for new-chat, new-call, and back-btn
+document.addEventListener('click', function(event) {
+    // If the clicked element is .new-chat or .new-call
+    if (event.target.closest('.new-chat') || event.target.closest('.new-call')) {
+        // Hide all elements except footer and the search container
+        document.querySelectorAll('body > *:not(#footer):not(#search)').forEach(el => {
+            el.classList.add('hidden'); // Add 'hidden' to other elements
+        });
+
+        const newContent = document.getElementById('search');
+        const contentFile = event.target.closest('.new-call') 
+            ? 'search-page.html' // For .new-call, use calls.html
+            : 'search-page.html'; // For .new-chat, use search-page.html
+
+        // Fetch and insert the content into #search
+        fetch(contentFile)
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load the content');
+                return response.text();
+            })
+            .then(html => {
+                newContent.innerHTML = html; // Insert fetched HTML content into #search
+                newContent.classList.remove('hidden'); // Remove 'hidden' class
+                newContent.style.display = 'block'; // Explicitly set display to 'block'
+            })
+            .catch(error => {
+                console.error(`Error loading ${contentFile}:`, error);
+            });
+    }
+
+    // If the clicked element is #back-btn
+    if (event.target.closest('#back-btn')) {
+        if (no_chats) {
+            // Hide the search/new-content div
+            const newContent = document.querySelector('.new-content');
+            newContent.classList.add('hidden');
+            newContent.style.display = 'none';
+
+            // Show everything else in the body
+            document.querySelectorAll('body > *:not(#search)').forEach(el => {
+                el.classList.remove('hidden');
+                el.style.display = ''; // Reset to default display
+            });
+        }
+    }
+});

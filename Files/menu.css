@@ -13,9 +13,9 @@
     z-index: 1700;
 }
 .dot {
-    width: 0.5vw;
-    height: 5px;
-    margin: 0.5vh auto;
+    width: 0.45vw;
+    height: 6px;
+    margin: 0.4vh auto;
     border-radius: 1vw;
     background-color: white;
     transition: background-color 0.3s ease;
@@ -60,4 +60,11 @@
     margin:2vh 1vw;
     display:flex;
     flex-direction: column !important;
+    cursor:default;
+}
+#menu-content #settings{
+    cursor:pointer !important;
+}
+#menu-content .pin, #menu-content .archived{
+    cursor:default;
 }

@@ -18,13 +18,21 @@ body{
     color:white;
     z-index: 1000;
 }
-.whatsapp, .status-pg, .comm-pg, .call-pg{
+.whatsapp, .status-pg, .comm-pg, .call-pg, .settings-pg{
     margin:2vh 2vw;
 }
 .cam {
-    height: 6vh;
-    margin: 2vh 0 2vh 67.5vw;
-    cursor: pointer;
+    width:4vw;
+    height:10vh;
+    background-color: rgb(0, 123, 123);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 67.5vw;
+    cursor:pointer;
+}
+.cam img{
+    height:5.5vh;
 }
 #search-bar{
     width:4vw;
@@ -90,5 +98,8 @@ body{
     cursor: pointer;
 }
 .header h1 {
+    display: none;
+}
+.hidden {
     display: none;
 }

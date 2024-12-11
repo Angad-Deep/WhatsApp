@@ -3,7 +3,7 @@
     color:black;
 }
 .cam{
-    margin: 2vh 0 2vh 68.5vw;
+    margin-left: 68.5vw;
 }
 .in-msg{
     margin-top:15vh !important;
@@ -14,10 +14,18 @@
     background-color:rgb(0, 123, 123);
     color:white;
     border-radius:2vw;
-    font-size:2vw;
+    font-size:1.4vw;
     text-align:center;
     padding-top:1vh;
     margin:20vh auto;
+    cursor:pointer;
+}
+.start-com h2{
+    font-weight:400;
+    margin:auto;
+}
+.start-com:hover{
+    background-color:rgb(0, 109, 109);
 }
 #search-bar{
     display:none !important;
