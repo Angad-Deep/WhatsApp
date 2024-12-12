@@ -170,7 +170,7 @@ let menuVisible = false;
 
 function initializeMenuListeners() {
     const currentPage = window.location.pathname.split("/").pop(); // Get the current page name
-    if (currentPage === "james.html") {
+    if (currentPage === "james.html" || currentPage === "mom.html" || currentPage === "cat.html") {
         const chatMenuButton = document.getElementById("chat-menu");
         const inMenuContent = document.getElementById("in-menu-content");
         if (!chatMenuButton) {
@@ -199,7 +199,7 @@ function initializeMenuListeners() {
 
 function toggleMenuMob() {
     const currentPage = window.location.pathname.split("/").pop(); // Get the current page name
-    if (currentPage === "james.html") {
+    if (currentPage === "james.html" || currentPage === "mom.html" || currentPage === "cat.html") {
         const inMenuContent = document.getElementById("in-menu-content");
         if (!inMenuContent) {
             console.warn("Menu content not found.");
