@@ -1,35 +1,66 @@
 document.addEventListener("DOMContentLoaded", () => {
     insertHeaderAndMenu();
     insertFooter();
+    initializeMenuToggle();
 });
 
 function insertHeaderAndMenu() {
     const headerPlaceholder = document.getElementById("header");
+    const inHeaderPlaceholder = document.getElementById("in-header");
 
+    // Check if header placeholder exists
     if (headerPlaceholder) {
-        fetch("header.html")
+        fetch("header.html") // Load the universal header
             .then(response => response.text())
             .then(headerData => {
                 headerPlaceholder.innerHTML = headerData;
 
-                // After header is set, wait and execute logic
-                setTimeout(() => {
-                    updateHeaderVisibility();
-                }, 100); // Small delay to ensure DOM is ready
-
+                // After header is set, insert the menu
                 const menuPlaceholder = document.getElementById("main-menu");
                 if (menuPlaceholder) {
-                    fetch("menu.html")
+                    fetch("menu.html") // Load the universal menu
                         .then(response => response.text())
                         .then(menuData => {
                             menuPlaceholder.innerHTML = menuData;
+
+                            // After loading the menu, initialize listeners
                             initializeMenuListeners();
                             setupCameraListener();
+                            updateHeaderVisibility();
                         })
                         .catch(error => console.error("Error loading menu:", error));
+                } else {
+                    console.error("Menu placeholder not found");
                 }
             })
             .catch(error => console.error("Error loading header:", error));
+    }
+
+    // Check if in-header placeholder exists
+    if (inHeaderPlaceholder) {
+        fetch("in-chat-header.html") // Load the chat header
+            .then(response => response.text())
+            .then(headerData => {
+                inHeaderPlaceholder.innerHTML = headerData;
+
+                // After in-chat header is set, insert the chat menu
+                const menuPlaceholder = document.getElementById("in-chat-menu");
+                if (menuPlaceholder) {
+                    fetch("chat-menu.html") // Load the chat menu
+                        .then(response => response.text())
+                        .then(menuData => {
+                            menuPlaceholder.innerHTML = menuData;
+
+                            // After loading the chat menu, initialize listeners
+                            initializeMenuListeners();
+                            setupCameraListener();
+                        })
+                        .catch(error => console.error("Error loading chat menu:", error));
+                } else {
+                    console.error("Chat menu placeholder not found");
+                }
+            })
+            .catch(error => console.error("Error loading in-chat-header:", error));
     }
 }
 
@@ -138,36 +169,62 @@ function insertFooter() {
 let menuVisible = false;
 
 function initializeMenuListeners() {
-    const menuButton = document.getElementById("menu");
-    const menuContent = document.getElementById("menu-content");
-
-    if (!menuButton) {
-        console.warn("Menu button not found.");
-        return;
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current page name
+    if (currentPage === "james.html") {
+        const chatMenuButton = document.getElementById("chat-menu");
+        const inMenuContent = document.getElementById("in-menu-content");
+        if (!chatMenuButton) {
+            console.warn("Chat menu button not found.");
+            return;
+        }
+        if (!inMenuContent) {
+            console.warn("Menu content not found.");
+            return;
+        }
+        chatMenuButton.addEventListener("click", toggleMenuMob);
+    } else {
+        const menuButton = document.getElementById("menu");
+        const menuContent = document.getElementById("menu-content");
+        if (!menuButton) {
+            console.warn("Menu button not found.");
+            return;
+        }
+        if (!menuContent) {
+            console.warn("Menu content not found.");
+            return;
+        }
+        menuButton.addEventListener("click", toggleMenuMob);
     }
-
-    if (!menuContent) {
-        console.warn("Menu content not found.");
-        return;
-    }
-
-    menuButton.addEventListener("click", toggleMenuMob);
 }
 
 function toggleMenuMob() {
-    const menuContent = document.getElementById("menu-content");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current page name
+    if (currentPage === "james.html") {
+        const inMenuContent = document.getElementById("in-menu-content");
+        if (!inMenuContent) {
+            console.warn("Menu content not found.");
+            return;
+        }
+        if (inMenuContent.style.display === 'block') {
+            inMenuContent.style.display = 'none';
+        } else {
+            inMenuContent.style.display ='block';
+        }
 
-    if (!menuContent) {
-        console.error("Menu content not found.");
-        return;
-    }
-
-    if (menuContent.style.display === "block") {
-        menuContent.style.display = "none";
     } else {
-        menuContent.style.display = "block";
+        const menuContent = document.getElementById("menu-content");
+        if (!menuContent) {
+            console.warn("Menu content not found.");
+            return;
+        }
+        if (menuContent.style.display === "block") {
+            menuContent.style.display = "none";
+        } else {
+            menuContent.style.display = "block";
+        }
     }
 }
+
 let no_chats = true; // Global variable
 
 // Common event listener for new-chat, new-call, and back-btn
@@ -216,3 +273,42 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+let isCostume1 = true; // Variable to track the current costume
+
+function changeCostume() {
+    if (isCostume1) {
+        document.getElementById("sprite").style.backgroundImage = "url('sprite2.png')";
+    } else {
+        document.getElementById("sprite").style.backgroundImage = "url('sprite1.png')";
+    }
+    isCostume1 = !isCostume1; // Toggle the costume
+}
+
+function initializeMenuToggle() {
+    const observer = new MutationObserver(() => {
+        const inMenuContent = document.getElementById("in-menu-content");
+        const chatMenu = document.getElementById("chat-menu");
+
+        if (inMenuContent && chatMenu) {
+            console.log("#in-menu-content and #chat-menu found. Setting up event listener.");
+            observer.disconnect(); // Stop observing once elements are found
+
+            // Add the click listener to the body
+            document.body.addEventListener("click", (event) => {
+                if (
+                    inMenuContent.style.display === "block" && // Menu is visible
+                    !inMenuContent.contains(event.target) && // Click is outside #in-menu-content
+                    !chatMenu.contains(event.target) // Click is outside #chat-menu
+                ) {
+                    console.log("Clicked outside #in-menu-content. Triggering #chat-menu click.");
+                    chatMenu.click(); // Simulate a click to hide the menu
+                }
+            });
+        } else {
+            console.warn("#in-menu-content or #chat-menu not found. Observing DOM for changes.");
+        }
+    });
+
+    // Observe the document body for dynamic content
+    observer.observe(document.body, { childList: true, subtree: true });
+}

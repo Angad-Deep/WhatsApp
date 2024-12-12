@@ -1,4 +1,4 @@
-#menu {
+#menu, #chat-menu {
     margin:2vh 2vw 2vh 0;
     width: 3vw;
     height: 7vh;
@@ -12,7 +12,13 @@
     cursor: pointer;
     z-index: 1700;
 }
-.dot {
+#chat-menu{
+    margin:0 1vw 0 0;
+    height: 11.3vh;
+    width:4.5vw;
+    padding-top:4px;
+}
+.dot, .c-dot {
     width: 0.45vw;
     height: 6px;
     margin: 0.4vh auto;
@@ -20,8 +26,10 @@
     background-color: white;
     transition: background-color 0.3s ease;
 }
-
-#menu:hover .dot {
+.c-dot{
+    height:5px !important;
+}
+#menu:hover .dot, #chat-menu:hover .dot {
     background-color: rgb(240, 240, 240);
 }
 .m-hover {
@@ -38,12 +46,12 @@
     transition: opacity 0.3s ease; 
 }
 
-#menu:hover .m-hover {
+#menu:hover .m-hover, #chat-menu:hover .m-hover {
     opacity: 0.3;
     pointer-events: auto; 
 }
 
-#menu-content{
+#menu-content, #in-menu-content{
     height:28vh;
     width:15vw;
     margin-top:10vh;
@@ -52,8 +60,13 @@
     color:black;
     box-shadow:2px 3px 4px 5px rgba(0,0,0,0.1);
     border:2px solid black;
+    background-color:white;
 }
-#menu-content a{
+#in-menu-content{
+    height:37vh;
+    margin-top:12vh;
+}
+#menu-content a, #in-menu-content a:not(#more){
     font-size:2vw;
     color:black;
     text-decoration: none;
@@ -67,4 +80,24 @@
 }
 #menu-content .pin, #menu-content .archived{
     cursor:default;
+}
+#more{
+    font-size:1.4vw;
+    color:black;
+    text-decoration: none;
+    display:inline-flex;
+    cursor:default;
+}
+#more h2{
+    font-weight:normal !important;
+    margin:1vh 1vw;
+}
+.triangle{
+    width: 0;
+    margin:1.5vh 0 0 6vw;
+      height: 0;
+      border-top: 1vw solid transparent;
+      border-bottom: 1vw solid transparent;
+      border-left: 1.5vw solid grey;
+
 }

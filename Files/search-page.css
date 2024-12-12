@@ -33,6 +33,10 @@
     height:4vh !important;
     width:2.5vw;
 }
+.new-content a{
+    color:black;
+    text-decoration: none;
+}
 .james-chat, .mom-chat, .cat-chat{
     display:inline-flex;
     top:9.5vh;
@@ -48,6 +52,7 @@
 }
 .james-dp{
     height:12vh;
+    width:5.5vw;
     margin: auto 2vw;
     border:2px solid black;
     border-radius:3vw;
